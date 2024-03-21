@@ -2,6 +2,7 @@
 
 const {User, UserProfile, Category, Court, Schedule} = require('../models/index.js');
 const bcrypt = require('bcryptjs');
+const toRupiah = require('../helper/helper.js');
 
 class Controller {
 
@@ -120,11 +121,26 @@ class Controller {
 
     static async displayCourts(req, res) {
         try {
-            const courts = await Court.findAll();
             const activeUser = req.session.userId;
+            const {query} = req.query;
+
+            let condition = {};
+
+            if (query) {
+                condition.CategoryId = +query
+            }
+
+            const courts = await Court.findAll({
+                where : condition
+            });
+
+            const convertedPrice = courts.map((el) => {
+                return toRupiah(el.price);
+            });
 
             res.render('home.ejs', {
                 courts,
+                convertedPrice,
                 activeUser
             });
         } catch (error) {
@@ -182,6 +198,7 @@ class Controller {
                 where : {
                     date: new Date(date),
                     session: session,
+                    CourtId
                 }
             });
 
@@ -247,23 +264,98 @@ class Controller {
     }
 
     static async addCourtForm(req, res) {
-        
+        try {
+            res.render('admin/admin-add-court.ejs');
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
     };
 
     static async addCourtAction(req, res) {
+        try {
+            const {name, location, imageURL, description, price, CategoryId} = req.body;
 
+            await Court.create({
+                name,
+                location,
+                imageURL,
+                description,
+                price: +price,
+                CategoryId : +CategoryId
+            });
+
+            res.redirect('/admin/home');
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
     };
 
     static async updateCourtForm(req, res) {
+        try {
+            const {id} = req.params;
 
+            const pickedCourt = await Court.findByPk(+id);
+
+            res.render('admin/admin-update-court.ejs', {
+                pickedCourt
+            });
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        };
     };
 
     static async updateCourtAction(req, res) {
+        try {
+            const {name, location, imageURL, description, price, CategoryId} = req.body;
+            const {id} = req.params;
 
+            await Court.update({
+                name,
+                location,
+                imageURL,
+                description,
+                price,
+                CategoryId
+            }, {
+                where : {
+                    id : +id
+                }
+            });
+
+            res.redirect('/admin/home');
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        };
     };
 
     static async courtDetail(req, res) {
+        try {
+            const {id} = req.params;
 
+            const courtDetail = await Court.findByPk(+id, {
+                include : {
+                    model : Schedule,
+                    attributes: ['id', 'CourtId', 'UserId', 'date', 'session', 'price', 'createdAt', 'updatedAt'], 
+                    include : {
+                        model : User,
+                        include : {
+                            model : UserProfile
+                        }
+                    }
+                }
+            })
+
+            res.render('admin/admin-court-detail.ejs', {
+                courtDetail
+            });
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
     };
 };
 
