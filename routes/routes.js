@@ -10,6 +10,8 @@ const isLoggedIn = function(req, res, next) {
     if (!req.session.userId) {
         const error = "Harap log-in terlebih dahulu"
         res.redirect(`/login/?error=${error}`)
+    } else {
+        next()
     }
 }
 
@@ -32,6 +34,9 @@ router.post('/login', Controller.loginAction);
 // Route untuk logout
 router.get('/logout', Controller.logoutAction);
 
+// Route untuk melihat carts
+router.get('/cart', isLoggedIn, Controller.displayCart)
+
 // Route untuk menampilkan seluruh lapangan
 router.get('/', Controller.displayCourts);
 
@@ -42,9 +47,10 @@ router.get('/categories/:id', Controller.displayPerCategory);
 router.get('/courts/:id', Controller.displayPerCourt);
 
 // Route untuk booking lapangan
-router.get('/courts/:id/book', (req, res) => {
+router.post('/courts/:id/book', isLoggedIn, Controller.bookCourt);
 
-});
+// Route untuk menghapus bookingan
+router.get('/schedules/:id', isLoggedIn, Controller.removeSchedule);
 
 
 
