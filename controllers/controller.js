@@ -257,7 +257,6 @@ class Controller {
 
     static async addCourtAction(req, res) {
         try {
-            console.log(req.body);
             const {name, location, imageURL, description, price, CategoryId} = req.body;
 
             await Court.create({
@@ -278,7 +277,13 @@ class Controller {
 
     static async updateCourtForm(req, res) {
         try {
-            
+            const {id} = req.params;
+
+            const pickedCourt = await Court.findByPk(+id);
+
+            res.render('admin/admin-update-court.ejs', {
+                pickedCourt
+            });
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -286,7 +291,28 @@ class Controller {
     };
 
     static async updateCourtAction(req, res) {
+        try {
+            const {name, location, imageURL, description, price, CategoryId} = req.body;
+            const {id} = req.params;
 
+            await Court.update({
+                name,
+                location,
+                imageURL,
+                description,
+                price,
+                CategoryId
+            }, {
+                where : {
+                    id : +id
+                }
+            });
+
+            res.redirect('/admin/home');
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        };
     };
 
     static async courtDetail(req, res) {
