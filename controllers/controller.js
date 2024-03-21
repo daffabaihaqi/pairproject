@@ -51,11 +51,6 @@ class Controller {
 
     static async loginAction(req, res) {
         try {
-            // 1. findOne User dari email
-            // 2. compare plain password dengan hash password
-            // 3. kalau tdk sama, gaboleh masuk ke home 
-            // 4. kalau password sesuai, maka redirect ke home
-
             const {email, password} = req.body;
 
             const user = await User.findOne({ where : { email }});
@@ -64,6 +59,10 @@ class Controller {
                 const isValidPassword = bcrypt.compareSync(password, user.password);
 
                 if (isValidPassword) {
+
+                    req.session.userId = user.id
+                    req.session.role = user.role
+
                     res.redirect('/');
                 } else {
                     const error = "invalid username/password"
@@ -76,6 +75,39 @@ class Controller {
         } catch (error) {
             console.log(error);
             res.send(error);
+        }
+    };
+
+    static async logoutAction(req, res) {
+        try {
+            req.session.destroy();
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        };
+    };
+
+    static async displayCourts(req, res) {
+        try {
+            
+        } catch (error) {
+            
+        };
+    };
+
+    static async displayPerCategory(req, res) {
+        try {
+            
+        } catch (error) {
+            
+        };
+    };
+
+    static async displayPerCourt(req, res) {
+        try {
+            
+        } catch (error) {
+            
         }
     }
 };
