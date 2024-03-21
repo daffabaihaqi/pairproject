@@ -14,11 +14,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasOne(models.UserProfile);
+      User.belongsToMany(models.Court, {through : models.Schedule});
+      User.hasMany(models.Schedule);
     }
   }
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
+    email: {
+      type :DataTypes.STRING,
+      allowNull : false
+    },
+    password: {
+      type : DataTypes.STRING, 
+      allowNull: false
+    },
     role: DataTypes.STRING
   }, {
     sequelize,
@@ -29,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         const hash = bcrypt.hashSync(instance.password, salt);
 
         instance.password = hash;
+        instance.role = 'User';
       }
     }
   });
