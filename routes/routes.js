@@ -10,6 +10,10 @@ const isLoggedIn = function(req, res, next) {
     if (!req.session.userId) {
         const error = "Harap log-in terlebih dahulu"
         res.redirect(`/login/?error=${error}`)
+    } else if (req.session.role === 'Admin') {
+        const error = "Anda tidak memiliki akses!"
+        req.session.destroy();
+        res.redirect(`/login/?error=${error}`)
     } else {
         next()
     }
@@ -18,7 +22,7 @@ const isLoggedIn = function(req, res, next) {
 const isAdmin = function(req, res, next) {
     if (req.session.role !== 'Admin') {
         const error = "Anda tidak memiliki akses!"
-        res.redirect(`/login/?error=${error}`)
+        res.redirect(`/login/?error=${error}`);
     } else {
         next();
     }

@@ -316,7 +316,29 @@ class Controller {
     };
 
     static async courtDetail(req, res) {
+        try {
+            const {id} = req.params;
 
+            const courtDetail = await Court.findByPk(+id, {
+                include : {
+                    model : Schedule,
+                    attributes: ['id', 'CourtId', 'UserId', 'date', 'session', 'price', 'createdAt', 'updatedAt'], 
+                    include : {
+                        model : User,
+                        include : {
+                            model : UserProfile
+                        }
+                    }
+                }
+            })
+
+            res.render('admin/admin-court-detail.ejs', {
+                courtDetail
+            });
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
     };
 };
 
