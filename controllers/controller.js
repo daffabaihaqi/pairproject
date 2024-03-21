@@ -247,15 +247,42 @@ class Controller {
     }
 
     static async addCourtForm(req, res) {
-        
+        try {
+            res.render('admin/admin-add-court.ejs');
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
     };
 
     static async addCourtAction(req, res) {
+        try {
+            console.log(req.body);
+            const {name, location, imageURL, description, price, CategoryId} = req.body;
 
+            await Court.create({
+                name,
+                location,
+                imageURL,
+                description,
+                price: +price,
+                CategoryId : +CategoryId
+            });
+
+            res.redirect('/admin/home');
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
     };
 
     static async updateCourtForm(req, res) {
-
+        try {
+            
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        };
     };
 
     static async updateCourtAction(req, res) {

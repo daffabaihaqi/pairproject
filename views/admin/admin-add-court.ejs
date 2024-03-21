@@ -9,35 +9,36 @@
 <body>
     <%- include('../partials/navbar-admin.ejs') %>
 
+
     <div class="container">
+        <h2>Tambahkan Lapangan Baru</h2>
+
+
         <form action="/admin/add" method="post">
-            <label for="email">Email:</label><br>
-            <input type="text" id="email" name="email"><br><br>
+            <label for="name">Nama Lapangan:</label><br>
+            <input type="text" id="name" name="name"><br><br>
     
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password"><br><br>
+            <label for="location">Lokasi:</label><br>
+            <input type="text" id="location" name="location"><br><br>
     
-            <label for="firstName">Nama Depan:</label><br>
-            <input type="text" id="firstName" name="firstName"><br><br>
+            <label for="imageURL">Image URL:</label><br>
+            <input type="text" id="imageURL" name="imageURL"><br><br>
     
-            <label for="lastName">Nama Belakang:</label><br>
-            <input type="text" id="lastName" name="lastName"><br><br>
+            <label for="description">Deskripsi:</label><br>
+            <input type="textarea" id="description" name="description"><br><br>
+
+            <label for="price">Harga Sewa:</label><br>
+            <input type="number" id="price" name="price"><br><br>
     
-            <label for="gender">Jenis Kelamin:</label><br>
-            <select id="gender" name="gender">
-                <option value="" disabled selected>Pilih Jenis Kelamin</option>
-                <option value="M">Laki-laki</option>
-                <option value="F">Perempuan</option>
+            <label for="CategoryId">Jenis Lapangan:</label><br>
+            <select id="CategoryId" name="CategoryId">
+                <option value="" disabled selected>Pilih Jenis Lapangan</option>
+                <option value="1">Sepak Bola</option>
+                <option value="2">Bulu Tangkis</option>
+                <option value="3">Basket</option>
+                <option value="4">Tenis</option>
+                <option value="5">Futsal</option>
             </select><br><br>
-    
-            <label for="phoneNumber">Nomor Handphone:</label><br>
-            <input type="text" id="phoneNumber" name="phoneNumber"><br><br>
-    
-            <label for="dateOfBirth">Tanggal Lahir:</label><br>
-            <input type="date" id="dateOfBirth" name="dateOfBirth"> <br><br>
-    
-            <label for="address">Alamat:</label><br>
-            <input type="text" id="address" name="address"><br><br>
     
             <input type="submit" value="Submit">
         </form>
