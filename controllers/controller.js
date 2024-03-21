@@ -16,12 +16,11 @@ class Controller {
 
     static async registerAction(req, res) {
         try {
-            const {email, password, role, firstName, lastName, dateOfBirth, address} = req.body;
+            const {email, password, firstName, lastName, gender, phoneNumber, dateOfBirth, address} = req.body;
 
             const CreatedUser = await User.create({
                 email,
                 password,
-                role
             });
 
             await UserProfile.create({
@@ -29,6 +28,8 @@ class Controller {
                 lastName,
                 dateOfBirth,
                 address,
+                gender,
+                phoneNumber,
                 UserId : CreatedUser.id
             });
 
@@ -89,9 +90,10 @@ class Controller {
 
     static async displayCourts(req, res) {
         try {
-            
+            res.send('Hello world');
         } catch (error) {
-            
+            console.log(error);
+            res.send(error);
         };
     };
 
@@ -99,7 +101,8 @@ class Controller {
         try {
             
         } catch (error) {
-            
+            console.log(error);
+            res.send(error);
         };
     };
 
@@ -107,7 +110,8 @@ class Controller {
         try {
             
         } catch (error) {
-            
+            console.log(error);
+            res.send(error);
         }
     }
 };
