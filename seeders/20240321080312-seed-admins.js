@@ -1,5 +1,7 @@
 'use strict';
 
+const bcrypt = require('bcryptjs');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -16,6 +18,11 @@ module.exports = {
     const admins = require('../data/admins.json').map((el) => {
       el.createdAt = new Date();
       el.updatedAt = new Date();
+
+      const salt = bcrypt.genSaltSync(8);
+      const hash = bcrypt.hashSync(el.password, salt);
+
+      el.password = hash;
 
       return el;
     });
