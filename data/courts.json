@@ -1,0 +1,82 @@
+[
+    {
+        "name" : "Cilandak Futsal",
+        "location" : "Jakarta Selatan",
+        "imageURL" : "https://mitrasraya.com/wp-content/uploads/2021/05/DSC05796-768x432.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 300000,
+        "CategoryId" : 5
+    },
+    {
+        "name" : "Kuningan Village Futsal Field",
+        "location" : "Jakarta Selatan",
+        "imageURL" : "https://admin.saraga.id/storage/images/kuningan-village-futsal_1631780321.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 250000,
+        "CategoryId" : 5
+    },
+    {
+        "name" : "Asaba Green Arena",
+        "location" : "Jakarta Barat",
+        "imageURL" : "https://asset.ayo.co.id/image/venue/166020409826372.image_cropper_1660203944911_large.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 280000,
+        "CategoryId" : 5
+    },
+    {
+        "name" : "GOR Badminton Cipete",
+        "location" : "Jakarta Selatan",
+        "imageURL" : "https://admin.saraga.id/storage/images/img-20211012-wa0079_1634059345.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 150000,
+        "CategoryId" : 2
+    },
+    {
+        "name" : "British School Jakarta Football",
+        "location" : "Tangerang Selatan",
+        "imageURL" : "https://gelora-public-storage.s3-ap-southeast-1.amazonaws.com/upload/public-20220531054815.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 3000000,
+        "CategoryId" : 1
+    },
+    {
+        "name" : "DM Sport",
+        "location" : "Tangerang",
+        "imageURL" : "https://gelora-public-storage.s3-ap-southeast-1.amazonaws.com/upload/public-20220804060642.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 2000000,
+        "CategoryId" : 1
+    },
+    {
+        "name" : "PSF Basketball",
+        "location" : "Jakarta Selatan",
+        "imageURL" : "https://gelora-public-storage.s3-ap-southeast-1.amazonaws.com/upload/public-20220307062916.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 1500000,
+        "CategoryId" : 3
+    },
+    {
+        "name" : "JIEP Sport Center Basket",
+        "location" : "Jakarta Timur",
+        "imageURL" : "https://gelora-public-storage.s3-ap-southeast-1.amazonaws.com/upload/public-20231116100819.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 110000,
+        "CategoryId" : 3
+    },
+    {
+        "name" : "British School Jakarta Tennis",
+        "location" : "Tangerang Selatan",
+        "imageURL" : "https://gelora-public-storage.s3-ap-southeast-1.amazonaws.com/upload/public-20220913084001.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 363000,
+        "CategoryId" : 4
+    },
+    {
+        "name" : "Tennis Bulungan",
+        "location" : "Jakarta Selatan",
+        "imageURL" : "https://gelora-public-storage.s3-ap-southeast-1.amazonaws.com/upload/public-20230814023422.jpg",
+        "description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas at tellus ornare euismod. Pellentesque tincidunt fringilla sagittis. Nulla ultrices euismod nibh. Cras auctor libero nibh, pellentesque mattis libero vehicula.",
+        "price" : 200000,
+        "CategoryId" : 4
+    }
+]
