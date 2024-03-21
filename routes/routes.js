@@ -67,7 +67,7 @@ router.get('/schedules/:id', isLoggedIn, Controller.removeSchedule);
 
 
 
-
+// Route untuk admin
 router.get('/admin/home', isAdmin, Controller.displayAdminHome);
 
 router.get('/admin/add', isAdmin, Controller.addCourtForm);

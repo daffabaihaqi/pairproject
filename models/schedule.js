@@ -14,6 +14,17 @@ module.exports = (sequelize, DataTypes) => {
       Schedule.belongsTo(models.Court);
       Schedule.belongsTo(models.User);
     }
+
+    get formattedDate() {
+      const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      };
+
+      return this.date.toLocaleDateString('id-ID', options);
+    }
   }
   Schedule.init({
     CourtId: DataTypes.INTEGER,

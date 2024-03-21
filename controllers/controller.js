@@ -2,6 +2,7 @@
 
 const {User, UserProfile, Category, Court, Schedule} = require('../models/index.js');
 const bcrypt = require('bcryptjs');
+const toRupiah = require('../helper/helper.js');
 
 class Controller {
 
@@ -120,11 +121,26 @@ class Controller {
 
     static async displayCourts(req, res) {
         try {
-            const courts = await Court.findAll();
             const activeUser = req.session.userId;
+            const {query} = req.query;
+
+            let condition = {};
+
+            if (query) {
+                condition.CategoryId = +query
+            }
+
+            const courts = await Court.findAll({
+                where : condition
+            });
+
+            const convertedPrice = courts.map((el) => {
+                return toRupiah(el.price);
+            });
 
             res.render('home.ejs', {
                 courts,
+                convertedPrice,
                 activeUser
             });
         } catch (error) {
@@ -182,6 +198,7 @@ class Controller {
                 where : {
                     date: new Date(date),
                     session: session,
+                    CourtId
                 }
             });
 
