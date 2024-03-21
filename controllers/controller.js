@@ -15,7 +15,7 @@ class Controller {
         try {
             const {email, password, role, firstName, lastName, dateOfBirth, address} = req.body;
 
-            await User.create({
+            const CreatedUser = await User.create({
                 email,
                 password,
                 role
@@ -25,11 +25,30 @@ class Controller {
                 firstName,
                 lastName,
                 dateOfBirth,
-                address
+                address,
+                UserId : CreatedUser.id
             });
 
             res.redirect('/');
 
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        };
+    };
+
+    static async loginForm(req, res) {
+        try {
+            
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        };
+    };
+
+    static async loginAction(req, res) {
+        try {
+            
         } catch (error) {
             console.log(error);
             res.send(error);
