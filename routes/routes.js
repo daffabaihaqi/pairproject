@@ -42,9 +42,7 @@ router.get('/categories/:id', Controller.displayPerCategory);
 router.get('/courts/:id', Controller.displayPerCourt);
 
 // Route untuk booking lapangan
-router.get('/courts/:id/book', (req, res) => {
-
-});
+router.get('/courts/:id/book', Controller.bookCourt);
 
 
 

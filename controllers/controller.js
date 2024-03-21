@@ -90,7 +90,7 @@ class Controller {
 
     static async displayCourts(req, res) {
         try {
-            res.send('Hello world');
+            res.send('hello world');
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -108,7 +108,37 @@ class Controller {
 
     static async displayPerCourt(req, res) {
         try {
-            
+            const {id} = req.params;
+
+            // const pickedCourt = await Court.findByPk(+id, { 
+            //     include : Category
+            // });
+
+            const pickedCourt = await Court.findByPk(+id, {
+                include : Category
+            });
+
+            const today = (new Date()).toLocaleDateString('en-CA', {
+                month : 'numeric',
+                day : 'numeric',
+                year : 'numeric'
+            });
+
+            console.log(today)
+
+            res.render('court.ejs', {
+                pickedCourt,
+                today
+            });
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        };
+    };
+
+    static async bookCourt(req, res) {
+        try {
+            res.send(req.body);
         } catch (error) {
             console.log(error);
             res.send(error);

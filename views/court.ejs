@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pamungkas Sports Club</title>
+</head>
+<body>
+    <img src="<%= pickedCourt.imageURL %>" alt="" width="600px">
+
+    <h2><%= pickedCourt.name %></h2>
+
+    <p>
+        <b><%= pickedCourt.Category.name %></b>
+        in
+        <b><%= pickedCourt.location %></b>
+    </p>
+
+    <hr>
+
+    <h3>Desription:</h3>
+    <p><%= pickedCourt.description %></p>
+
+    <h3>Pilih Jadwal:</h3>
+    <form action="/courts/<%= pickedCourt.id %>/book">
+        <p>Tanggal:</p>
+        <input type="date" id="date" name="date" min="<%= today %>" value="<%= today %>"> <br><br>
+    
+        <p>Sesi:</p>
+        <select id="session" name="session">
+            <option value="" disabled selected>Pilih Sesi</option>
+            <option value="Siang">Siang</option>
+            <option value="Sore">Sore</option>
+            <option value="Malam">Malam</option>
+        </select><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+
+    
+</body>
+</html>
