@@ -1,4 +1,7 @@
+"use strict"
+
 const {User, UserProfile, Category, Court, Schedule} = require('../models/index.js');
+const bcrypt = require('bcryptjs');
 
 class Controller {
 
@@ -39,7 +42,7 @@ class Controller {
 
     static async loginForm(req, res) {
         try {
-            
+            res.render('login-form.ejs')
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -48,7 +51,28 @@ class Controller {
 
     static async loginAction(req, res) {
         try {
-            
+            // 1. findOne User dari email
+            // 2. compare plain password dengan hash password
+            // 3. kalau tdk sama, gaboleh masuk ke home 
+            // 4. kalau password sesuai, maka redirect ke home
+
+            const {email, password} = req.body;
+
+            const user = await User.findOne({ where : { email }});
+
+            if (user) {
+                const isValidPassword = bcrypt.compareSync(password, user.password);
+
+                if (isValidPassword) {
+                    res.redirect('/');
+                } else {
+                    const error = "invalid username/password"
+                    res.redirect(`/login/?error=${error}`)
+                }
+            } else {
+                const error = "invalid username/password"
+                res.redirect(`/login/?error=${error}`)
+            }
         } catch (error) {
             console.log(error);
             res.send(error);
