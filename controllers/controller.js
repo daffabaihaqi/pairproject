@@ -82,6 +82,32 @@ class Controller {
     static async logoutAction(req, res) {
         try {
             req.session.destroy();
+            res.redirect('/login')
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        };
+    };
+
+    static async displayCart(req, res) {
+        try {
+            const userId = req.session.userId;
+
+            const bookedSchedule = await User.findByPk(userId, {
+                include : {
+                    model: Schedule,
+                    attributes: ['id', 'CourtId', 'UserId', 'date', 'session', 'price', 'createdAt', 'updatedAt'], 
+                    include : {
+                        model : Court
+                    }
+                }, 
+            });
+
+            console.log(bookedSchedule.Schedules)
+
+            res.render('cart.ejs', {
+                bookedSchedule
+            });
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -90,7 +116,13 @@ class Controller {
 
     static async displayCourts(req, res) {
         try {
-            res.send('hello world');
+            const courts = await Court.findAll();
+            const activeUser = req.session.userId;
+
+            res.render('home.ejs', {
+                courts,
+                activeUser
+            });
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -108,11 +140,8 @@ class Controller {
 
     static async displayPerCourt(req, res) {
         try {
+            const activeUser = req.session.userId;
             const {id} = req.params;
-
-            // const pickedCourt = await Court.findByPk(+id, { 
-            //     include : Category
-            // });
 
             const pickedCourt = await Court.findByPk(+id, {
                 include : Category
@@ -124,11 +153,10 @@ class Controller {
                 year : 'numeric'
             });
 
-            console.log(today)
-
             res.render('court.ejs', {
                 pickedCourt,
-                today
+                today,
+                activeUser
             });
         } catch (error) {
             console.log(error);
@@ -138,7 +166,63 @@ class Controller {
 
     static async bookCourt(req, res) {
         try {
-            res.send(req.body);
+            const UserId = req.session.userId;
+            const CourtId = +req.params.id;
+
+            const {date, session} = req.body;
+
+            const pickedCourt = await Court.findByPk(CourtId);
+            const price = pickedCourt.price;
+
+            const bookedSchedule = await Schedule.findOne({
+                where : {
+                    date: new Date(date),
+                    session: session,
+                }
+            });
+
+            if(bookedSchedule) {
+                const error = "Lapangan sudah dipesan"
+                return res.redirect(`/courts/${CourtId}/?error=${error}`)
+            } else {
+                await Schedule.create({
+                    UserId,
+                    CourtId,
+                    date,
+                    session,
+                    price
+                });
+    
+                return res.redirect('/cart');
+            }
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
+    }
+
+    static async removeSchedule(req, res) {
+        try {
+            const userId = req.session.userId;
+            const { id } = req.params;
+
+            const pickedSchedule = await Schedule.findOne({
+                where : {
+                    id
+                }
+            });
+
+            if (pickedSchedule.UserId === userId) {
+                await Schedule.destroy({
+                    where : {
+                        id 
+                    }
+                }); 
+
+                return res.redirect('/cart');
+            } else {
+                return res.redirect('/login')
+            }
         } catch (error) {
             console.log(error);
             res.send(error);

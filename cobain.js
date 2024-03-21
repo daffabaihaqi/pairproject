@@ -1,9 +1,20 @@
-const bcrypt = require('bcryptjs');
-const salt = bcrypt.genSaltSync(10);
-const hash = bcrypt.hashSync("daffaaa", salt);
+"use strict"
+
+const {User, UserProfile, Category, Court, Schedule} = require('./models/index.js');
 
 
-console.log(bcrypt.compareSync("daffaaa", hash));
+async function coba() {
+    try {
+        const pickedSchedule = await User.findByPk(4, {
+            include : Court
+        })
 
-console.log(bcrypt.compareSync("daffa", hash));
+        console.log(pickedSchedule);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
+
+
+coba();
