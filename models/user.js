@@ -4,6 +4,7 @@ const {
 } = require('sequelize');
 
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -40,6 +41,29 @@ module.exports = (sequelize, DataTypes) => {
 
         instance.password = hash;
         instance.role = 'User';
+      },
+      afterCreate(instance, option) {
+        const email = instance.email;
+
+        const transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port : 465,
+          secure: true,
+          auth: {
+              user: 'fakeemailforpp@gmail.com',
+              pass : 'kcqs ctjl zatj fvtn '
+          }
+        });
+      
+        transporter.sendMail({
+            to: `${email}`,
+            subject: 'Salam dari Pamungkan Sports Club',
+            html: '<h1>Hi! Terimakasih telah menjadi bagian dari Pamungkan Sports Club</h1>'
+        }).then(() => {
+            console.log('Email sent')
+        }).catch((err) => {
+            console.log(err)
+        });
       }
     }
   });

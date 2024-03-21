@@ -64,7 +64,11 @@ class Controller {
                     req.session.userId = user.id
                     req.session.role = user.role
 
-                    res.redirect('/');
+                    if (req.session.role === 'Admin') {
+                        res.redirect('/admin/home')
+                    } else {
+                        res.redirect('/');
+                    }
                 } else {
                     const error = "invalid username/password"
                     res.redirect(`/login/?error=${error}`)
@@ -227,7 +231,40 @@ class Controller {
             console.log(error);
             res.send(error);
         }
+    };
+
+    static async displayAdminHome(req, res) {
+        try {
+            const courts = await Court.findAll();
+
+            res.render('admin/admin-home.ejs', {
+                courts
+            });
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
     }
+
+    static async addCourtForm(req, res) {
+        
+    };
+
+    static async addCourtAction(req, res) {
+
+    };
+
+    static async updateCourtForm(req, res) {
+
+    };
+
+    static async updateCourtAction(req, res) {
+
+    };
+
+    static async courtDetail(req, res) {
+
+    };
 };
 
 module.exports = Controller;

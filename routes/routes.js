@@ -13,6 +13,15 @@ const isLoggedIn = function(req, res, next) {
     } else {
         next()
     }
+};
+
+const isAdmin = function(req, res, next) {
+    if (req.session.role !== 'Admin') {
+        const error = "Anda tidak memiliki akses!"
+        res.redirect(`/login/?error=${error}`)
+    } else {
+        next();
+    }
 }
 
 
@@ -53,6 +62,19 @@ router.post('/courts/:id/book', isLoggedIn, Controller.bookCourt);
 router.get('/schedules/:id', isLoggedIn, Controller.removeSchedule);
 
 
+
+
+router.get('/admin/home', isAdmin, Controller.displayAdminHome);
+
+router.get('/admin/add', isAdmin, Controller.addCourtForm);
+
+router.post('/admin/add', isAdmin, Controller.addCourtAction);
+
+router.get('/admin/update/:id', isAdmin, Controller.updateCourtForm);
+
+router.post('/admin/update/:id', isAdmin, Controller.updateCourtAction);
+
+router.get('/admin/detail/:id', isAdmin, Controller.courtDetail);
 
 
 
