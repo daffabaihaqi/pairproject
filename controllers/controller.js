@@ -8,7 +8,11 @@ class Controller {
 
     static async registerForm(req, res) {
         try {
-            res.render('register-form.ejs')
+            const {error} = req.query;
+
+            res.render('register-form.ejs', {
+                error
+            })
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -273,7 +277,10 @@ class Controller {
 
     static async addCourtForm(req, res) {
         try {
-            res.render('admin/admin-add-court.ejs');
+            const {error} = req.query;
+            res.render('admin/admin-add-court.ejs', {
+                error
+            });
         } catch (error) {
             console.log(error);
             res.send(error);
@@ -296,18 +303,28 @@ class Controller {
             res.redirect('/admin/home');
         } catch (error) {
             console.log(error);
-            res.send(error);
+            if (error.name = 'SequelizeValidationError') {
+                const errors = error.errors.map((el) => {
+                    return el.message
+                });
+
+                res.redirect(`/admin/add?error=${errors}`);
+            } else {
+                res.send(error.message);
+            }
         }
     };
 
     static async updateCourtForm(req, res) {
         try {
+            const {error} = req.query;
             const {id} = req.params;
 
             const pickedCourt = await Court.findByPk(+id);
 
             res.render('admin/admin-update-court.ejs', {
-                pickedCourt
+                pickedCourt,
+                error
             });
         } catch (error) {
             console.log(error);
@@ -316,10 +333,9 @@ class Controller {
     };
 
     static async updateCourtAction(req, res) {
+        const {name, location, imageURL, description, price, CategoryId} = req.body;
+        const {id} = req.params;
         try {
-            const {name, location, imageURL, description, price, CategoryId} = req.body;
-            const {id} = req.params;
-
             await Court.update({
                 name,
                 location,
@@ -336,7 +352,15 @@ class Controller {
             res.redirect('/admin/home');
         } catch (error) {
             console.log(error);
-            res.send(error);
+            if (error.name = 'SequelizeValidationError') {
+                const errors = error.errors.map((el) => {
+                    return el.message
+                });
+
+                res.redirect(`/admin/update/${id}/?error=${errors}`);
+            } else {
+                res.send(error.message);
+            }
         };
     };
 
