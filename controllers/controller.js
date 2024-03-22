@@ -56,7 +56,11 @@ class Controller {
 
     static async loginForm(req, res) {
         try {
-            res.render('login-form.ejs')
+            const {error} = req.query;
+
+            res.render('login-form.ejs', {
+                error
+            })
         } catch (error) {
             console.log(error);
             res.send(error);
