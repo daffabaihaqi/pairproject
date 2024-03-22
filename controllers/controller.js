@@ -38,7 +38,15 @@ class Controller {
 
         } catch (error) {
             console.log(error);
-            res.send(error);
+            if (error.name = 'SequelizeValidationError') {
+                const errors = error.errors.map((el) => {
+                    return el.message
+                });
+
+                res.redirect(`/register?error=${errors}`);
+            } else {
+                res.send(error.message);
+            }
         };
     };
 
